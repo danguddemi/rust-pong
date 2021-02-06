@@ -46,7 +46,7 @@ fn main() -> amethyst::Result<()> {
                 .with_plugin(RenderFlat2D::default()),
         )?;
     let assest_dir = app_root.join("assets");
-    let mut game = Application::new(assest_dir, Pong, game_data)?;
+    let mut game = Application::new(assest_dir, Pong::default(), game_data)?;
     game.run();
 
     Ok(())
