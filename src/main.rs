@@ -14,6 +14,7 @@ use amethyst::{
         InputBundle,
         StringBindings,
     },
+    ui::{RenderUi, UiBundle}
 };
 
 use crate::pong::Pong;
@@ -30,6 +31,7 @@ fn main() -> amethyst::Result<()> {
     let game_data = GameDataBuilder::default()
         .with_bundle(TransformBundle::new())?
         .with_bundle(input_bundle)?
+        .with_bundle(UiBundle::<StringBindings>::new())?
         .with(systems::PaddleSystem, "paddle_system", &["input_system"])
         .with(systems::MoveBallsSystem, "ball_system", &[])
         .with(systems::WinnerSystem, "winner_system", &["ball_system"])
@@ -44,7 +46,8 @@ fn main() -> amethyst::Result<()> {
                     RenderToWindow::from_config_path(display_config_path)?
                         .with_clear([0.0, 0.0, 0.0, 1.0]),
                 )
-                .with_plugin(RenderFlat2D::default()),
+                .with_plugin(RenderFlat2D::default())
+                .with_plugin(RenderUi::default()),                
         )?;
     let assest_dir = app_root.join("assets");
     let mut game = Application::new(assest_dir, Pong::default(), game_data)?;
