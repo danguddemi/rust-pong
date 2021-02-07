@@ -32,6 +32,7 @@ fn main() -> amethyst::Result<()> {
         .with_bundle(input_bundle)?
         .with(systems::PaddleSystem, "paddle_system", &["input_system"])
         .with(systems::MoveBallsSystem, "ball_system", &[])
+        .with(systems::WinnerSystem, "winner_system", &["ball_system"])
         .with(
             systems::BounceSystem,
             "collision_system",
