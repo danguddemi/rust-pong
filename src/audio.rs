@@ -1,6 +1,6 @@
 use amethyst::{
-    assets::Loader,
-    audio::{OggFormat, SourceHandle},
+    assets::{Loader, AssetStorage},
+    audio::{OggFormat, SourceHandle, output::Output, Source},
     ecs::{World, WorldExt},
 };
 
@@ -28,4 +28,12 @@ pub fn initialize_audio(world: &mut World) {
     };
 
     world.insert(sound_effects);
+}
+
+pub fn play_bounce_sound(sounds: &Sounds, storage: &AssetStorage<Source>, output: Option<&Output>) {
+    if let Some(ref output) = output.as_ref() {
+        if let Some(sound) = storage.get(&sounds.bounce_sfx) {
+            output.play_once(sound, 1.0);
+        }
+    }   
 }
